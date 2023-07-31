@@ -1,0 +1,64 @@
+using Images
+greek1 = load("C:\\Users\\Hp\\Downloads\\greeks\\greek1.jpg")
+size(greek1)
+greek2 = load("C:\\Users\\Hp\\Downloads\\greeks\\greek2.jpg")
+size(greek2)
+greek3 = load("C:\\Users\\Hp\\Downloads\\greeks\\greek3.jpg")
+size(greek3)
+greek4 = load("C:\\Users\\Hp\\Downloads\\greeks\\greek4.jpg")
+size(greek4)
+greek5 = load("C:\\Users\\Hp\\Downloads\\greeks\\greek5.jpg")
+size(greek5)
+grey1 = Gray.(greek1)
+g1 = imresize(grey1,(720,1080))
+grey2 = Gray.(greek2)
+g2 = imresize(grey2,(720,1080))
+grey3 = Gray.(greek3)
+g3 = imresize(grey3,(720,1080))
+grey4 = Gray.(greek4)
+g4 = imresize(grey4,(720,1080))
+grey5 = Gray.(greek5)
+g5 = imresize(grey5,(720,1080))
+
+greeks = vcat(g1,g2,g3,g4,g5)
+
+plant1 = load("C:\\Users\\Hp\\Downloads\\plant1.jpg")
+gray1 = Gray.(plant1)
+size(gray1)
+p1 = imresize(gray1,(720,1080))
+plant2 = load("C:\\Users\\Hp\\Downloads\\plant2.jpg")
+gray2 = Gray.(plant2)
+size(gray2)
+p2 = imresize(gray2,(720,1080))
+plant3 = load("C:\\Users\\Hp\\Downloads\\plant3.jpg")
+gray3 = Gray.(plant3)
+size(gray3)
+p3 = imresize(gray3,(720,1080))
+plant4 = load("C:\\Users\\Hp\\Downloads\\plant4.jpg")
+gray4 = Gray.(plant4)
+p4 = imresize(gray4,(720,1080))
+plant5 = load("C:\\Users\\Hp\\Downloads\\plant5.jpg")
+gray5 = Gray.(plant5)
+size(gray5)
+p5 = imresize(gray5,(720,1080))
+
+plants = vcat(p1,p2,p3,p4,p5)
+
+typeof(greeks)
+
+myFloat32(X) = Float32.(X)
+train1 = Float32.(greeks)
+train2 = Float32.(plants)
+
+using Flux
+O = model(train1)
+S = model(train2)
+
+using PyCall
+np = pyimport("numpy")
+
+PIL = pyimport("PIL")
+
+using TestImages
+image = testimage("pirate")
+using Flux: crossentropy
